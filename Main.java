@@ -18,6 +18,8 @@ public class Main {
                 System.out.println("7.Send Funds to Account");
                 System.out.println("8.Change Details");
                 System.out.println("9.Print All User INFO");
+                System.out.println("10.Delete User ");
+                System.out.println("11 Totale User");
                 try {
                     choice = scanner.nextInt();
                 } catch (Exception e) {
@@ -53,7 +55,17 @@ public class Main {
                     case 9:
                         account.PrintAllUser();
                         break;
-                    default:
+                    case 10:
+                        if (!account.DeleteUser()) {
+                            System.out.println("User Found \n And Deleted");
+                        } else {
+                            System.out.println("User Not Found");
+                        }
+                        break;
+                    case 11:
+                        account.TotalUser();
+                        break;
+                    default :
                         System.out.println("Invalid Input");
                         break;
                 }
