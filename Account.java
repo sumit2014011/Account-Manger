@@ -12,7 +12,7 @@ class Account {
 
     public void CreateUser() {
         if (userNumber >= user.length) {
-            System.out.println("Limit excide");
+            System.out.println("Limit excite");
             return;
         }
         user[userNumber] = new User();
@@ -23,7 +23,7 @@ class Account {
             String mobile = scanner.nextLine().trim();
             try {
                 String mobileRegex = "^\\+?[0-9]{10,15}$";
-                if (mobile == null || !Pattern.matches(mobileRegex, mobile)) {
+                if (!Pattern.matches(mobileRegex, mobile)) {
                     throw new Exception("Invalid mobile number: " + mobile);
                 }
                 user[userNumber].setMob_NUM(mobile);
@@ -38,7 +38,7 @@ class Account {
             try {
                 String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
                 Pattern pattern = Pattern.compile(emailRegex);
-                if (Email == null || !pattern.matcher(Email).matches()) {
+                if (!pattern.matcher(Email).matches()) {
                     throw new Exception("Invalid email address: " + Email);
                 }
                 user[userNumber].setEmail(Email);
@@ -74,7 +74,7 @@ class Account {
         System.out.println("Enter the UserId:");
         String userId = scanner.nextLine().trim();
         for (int i = 1; i < userNumber; i++) {
-            if (user[i] != null && userId.equalsIgnoreCase(user[i].getUser_id())) {
+            if (userId.equalsIgnoreCase(user[i].getUser_id())) {
                 System.out.println("User Found");
                 System.out.println("\t\t\tMobile No. = " + user[i].getMob_NUM());
                 System.out.println("\t\t\tUser ID = " + user[i].getUser_id());
@@ -105,7 +105,8 @@ class Account {
         boolean found = false;
 
         for (int i = 0; i < userNumber; i++) {
-            if (user[i] != null && name.equalsIgnoreCase(user[i].getName()) && userId.equalsIgnoreCase(user[i].getUser_id())) {
+            if (user[i] != null && name.equalsIgnoreCase(user[i].getName())
+                    && userId.equalsIgnoreCase(user[i].getUser_id())) {
                 System.out.println("User Name: " + user[i].getName());
                 System.out.println("Mobile Number: " + user[i].getMob_NUM());
                 System.out.println("Confirm deposit (Y or N):");
@@ -125,7 +126,8 @@ class Account {
                                 found = true;
                                 break;
                             } else {
-                                System.out.println("Invalid amount. Must be greater than zero and not exceed the maximum allowed balance.");
+                                System.out.println(
+                                        "Invalid amount. Must be greater than zero and not exceed the maximum allowed balance.");
                             }
                         } catch (InputMismatchException e) {
                             System.out.println("Invalid input. Please enter a valid numeric amount.");
@@ -158,7 +160,8 @@ class Account {
 
         boolean found = false;
         for (int i = 0; i < userNumber; i++) {
-            if (user[i] != null && user[i].getUser_id().equalsIgnoreCase(userId) && user[i].getName().equalsIgnoreCase(name)) {
+            if (user[i] != null && user[i].getUser_id().equalsIgnoreCase(userId)
+                    && user[i].getName().equalsIgnoreCase(name)) {
                 System.out.println("User Name: " + user[i].getName());
                 System.out.println("Mobile Number: " + user[i].getMob_NUM());
                 System.out.println("Confirm withdrawal (Y or N):");
@@ -251,7 +254,9 @@ class Account {
         String Card_Number = scanner.nextLine().trim();
         boolean temp = false;
         for (int i = 1; i < userNumber; i++) {
-            if ((user[i] != null) && (user[i].getCardNumber().equalsIgnoreCase(Card_Number)) && (user[i].getName().equalsIgnoreCase(name)) && (user[i].getMob_NUM().equalsIgnoreCase(Mob_Number))) {
+            if ((user[i] != null) && (user[i].getCardNumber().equalsIgnoreCase(Card_Number))
+                    && (user[i].getName().equalsIgnoreCase(name))
+                    && (user[i].getMob_NUM().equalsIgnoreCase(Mob_Number))) {
                 try {
                     System.out.println("Enter the Pin");
                     String pin = scanner.nextLine().trim();
@@ -283,7 +288,8 @@ class Account {
         double amount = scanner.nextDouble();
         boolean found = false;
         for (int i = 1; i < userNumber; i++) {
-            if ((user[i] != null) && (user[i].getName().equalsIgnoreCase(name)) && (user[i].getUser_id().equalsIgnoreCase(userId))) {
+            if ((user[i] != null) && (user[i].getName().equalsIgnoreCase(name))
+                    && (user[i].getUser_id().equalsIgnoreCase(userId))) {
                 if (amount > user[i].getBalance()) {
                     break;
                 } else {
@@ -294,7 +300,8 @@ class Account {
                         System.out.println("enter the Receiver user id");
                         String ReceiverUser_ID = scanner.nextLine().trim();
                         for (int j = 1; j < userNumber; j++) {
-                            if ((user[j] != null) && (user[j].getUser_id().equalsIgnoreCase(ReceiverUser_ID)) && (user[j].getName().equalsIgnoreCase(ReceiverName))) {
+                            if ((user[j] != null) && (user[j].getUser_id().equalsIgnoreCase(ReceiverUser_ID))
+                                    && (user[j].getName().equalsIgnoreCase(ReceiverName))) {
                                 user[j].setBalance((long) (user[j].getBalance() + amount));
                                 user[i].setBalance((long) (user[i].getBalance() - amount));
                                 System.out.println("Money sent successfully");
@@ -332,13 +339,19 @@ class Account {
         System.out.println("3.Both Change");
         int choice = scanner.nextInt();
         switch (choice) {
-            case 1 ->
+            case 1:
                 ChangeMobileNumber(i);
-            case 2 ->
+                break;
+            case 2:
                 ChangeEmail(i);
-            case 3 ->
+                break;
+            case 3:
                 ChangeEmail(i);
-            default -> {
+                ChangeMobileNumber(i);
+                break;
+            default: {
+                System.out.println("Invalid Input");
+                break;
             }
         }
     }
@@ -353,7 +366,7 @@ class Account {
 
     public void ChangeMobileNumber(int i) {
         scanner.nextLine();
-        System.out.println("Enter the new Email Address");
+        System.out.println("Enter the new Mobile Number");
         String newMob_No = scanner.nextLine().trim();
         user[i].setMob_NUM(newMob_No);
         System.out.println("Mobile Number Updated Successfully");
@@ -365,18 +378,47 @@ class Account {
             return;
         }
         for (int i = 1; i < userNumber; i++) {
-            System.out.println("\t\t\t\tUSER " + i);
-            System.out.println("==================================================================");
-            System.out.println("Name = " + user[i].getName());
-            System.out.println("User ID = " + user[i].getUser_id());
-            System.out.println("Mobile Number = " + user[i].getMob_NUM());
-            System.out.println("Email = " + user[i].getEmail());
-            System.out.println("==================================================================");
-            System.out.println("Card Number = " + user[i].getCardNumber());
-            System.out.println("Pin = " + user[i].getPin());
-            System.out.println("==================================================================");
-            System.out.println("------------------------------------------------------------------");
-            System.out.println();
+            if (user[i] != null) {
+                System.out.println("\t\t\t\tUSER " + i);
+                System.out.println("==================================================================");
+                System.out.println("Name = " + user[i].getName());
+                System.out.println("User ID = " + user[i].getUser_id());
+                System.out.println("Mobile Number = " + user[i].getMob_NUM());
+                System.out.println("Email = " + user[i].getEmail());
+                System.out.println("==================================================================");
+                System.out.println("Card Number = " + user[i].getCardNumber());
+                System.out.println("Pin = " + user[i].getPin());
+                System.out.println("Balance = " + user[i].getBalance());
+                System.out.println("==================================================================");
+                System.out.println("------------------------------------------------------------------");
+                System.out.println();
+            }
         }
+    }
+
+    public boolean DeleteUser() {
+        int i;
+        boolean state = true;
+        System.out.println("Enter the User");
+        String userid = scanner.nextLine();
+        for (i = 1; i < userNumber; i++) {
+            if (user[i].getUser_id().equals(userid) && (user[i] != null)) {
+                user[i] = null;
+                state = false;
+            }
+        }
+        return state;
+    }
+    public void TotalUser()
+    {
+        int totaluser=0;
+        for (int i=1;i<userNumber;i++)
+        {
+            if(user[i]!=null)
+            {
+                totaluser++;
+            }
+        }
+        System.out.println("Total user = "+totaluser);
     }
 }
